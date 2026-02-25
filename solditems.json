@@ -1,16 +1,328 @@
 {
-  "items": [
-    {
-      "name": "Coffee",
-      "lastSoldFor": 85000
-    },
-    {
-      "name": "Red Apple",
-      "lastSoldFor": 12450
-    },
-    {
-      "name": "Faerie Slingshot",
-      "lastSoldFor": 215000
-    }
-  ]
+    "items":  [
+                  {
+                      "name":  "A Smatter of Mustard",
+                      "lastSoldFor":  23999
+                  },
+                  {
+                      "name":  "Auction Tips and Tricks",
+                      "lastSoldFor":  1500
+                  },
+                  {
+                      "name":  "Bad Apples",
+                      "lastSoldFor":  1400
+                  },
+                  {
+                      "name":  "Beetroot Ice Cream",
+                      "lastSoldFor":  2999
+                  },
+                  {
+                      "name":  "Black Cherry Ixi Drink",
+                      "lastSoldFor":  2424
+                  },
+                  {
+                      "name":  "Blue Neocola Token",
+                      "lastSoldFor":  3600
+                  },
+                  {
+                      "name":  "Book of Symols",
+                      "lastSoldFor":  9999
+                  },
+                  {
+                      "name":  "Bori Veggie Special",
+                      "lastSoldFor":  1666
+                  },
+                  {
+                      "name":  "Butterscotch Milkshake",
+                      "lastSoldFor":  3533
+                  },
+                  {
+                      "name":  "Buzz Gauntlet",
+                      "lastSoldFor":  1414
+                  },
+                  {
+                      "name":  "Chocomalt Milkshake",
+                      "lastSoldFor":  3434
+                  },
+                  {
+                      "name":  "Coltzan Negg",
+                      "lastSoldFor":  4999
+                  },
+                  {
+                      "name":  "Crab Spaghetti",
+                      "lastSoldFor":  5500
+                  },
+                  {
+                      "name":  "Crispy Crunchy Cookies Cereal",
+                      "lastSoldFor":  3434
+                  },
+                  {
+                      "name":  "Curved Ruki Dagger",
+                      "lastSoldFor":  4242
+                  },
+                  {
+                      "name":  "Cybunny Cookie Making",
+                      "lastSoldFor":  1600
+                  },
+                  {
+                      "name":  "Disappearing Ink Book",
+                      "lastSoldFor":  1999
+                  },
+                  {
+                      "name":  "Doglefox Cookies",
+                      "lastSoldFor":  1999
+                  },
+                  {
+                      "name":  "Draik Cracker Sandwich",
+                      "lastSoldFor":  6250
+                  },
+                  {
+                      "name":  "Draik Soup",
+                      "lastSoldFor":  15000
+                  },
+                  {
+                      "name":  "Eyrie Guard Mask",
+                      "lastSoldFor":  5555
+                  },
+                  {
+                      "name":  "Eyrie Meatloaf",
+                      "lastSoldFor":  7999
+                  },
+                  {
+                      "name":  "Faerie Vacana Touch-N-Feel Book",
+                      "lastSoldFor":  1500
+                  },
+                  {
+                      "name":  "Felberry Gormball Sandwich",
+                      "lastSoldFor":  10000
+                  },
+                  {
+                      "name":  "Fried Eggs and Scallion Tortillas",
+                      "lastSoldFor":  1999
+                  },
+                  {
+                      "name":  "Game Manual: Pterattack",
+                      "lastSoldFor":  10000
+                  },
+                  {
+                      "name":  "Gelert Night Vision",
+                      "lastSoldFor":  3999
+                  },
+                  {
+                      "name":  "Gooseberry Jam Packed Lunch",
+                      "lastSoldFor":  6000
+                  },
+                  {
+                      "name":  "Growing Flower Crystals",
+                      "lastSoldFor":  33000
+                  },
+                  {
+                      "name":  "Halloween Themed Books",
+                      "lastSoldFor":  3999
+                  },
+                  {
+                      "name":  "Hidden Treasure Pasta",
+                      "lastSoldFor":  1500
+                  },
+                  {
+                      "name":  "Holiday Connect the Dots",
+                      "lastSoldFor":  1515
+                  },
+                  {
+                      "name":  "Honey Coated Apple Slices",
+                      "lastSoldFor":  2222
+                  },
+                  {
+                      "name":  "Honeydew Melon",
+                      "lastSoldFor":  2999
+                  },
+                  {
+                      "name":  "How to Grow Anything",
+                      "lastSoldFor":  3200
+                  },
+                  {
+                      "name":  "Iced Borovan",
+                      "lastSoldFor":  2400
+                  },
+                  {
+                      "name":  "Jalapeno Pretzel",
+                      "lastSoldFor":  4500
+                  },
+                  {
+                      "name":  "Jetsam Art",
+                      "lastSoldFor":  1777
+                  },
+                  {
+                      "name":  "Kiko Treasure Island",
+                      "lastSoldFor":  8999
+                  },
+                  {
+                      "name":  "Leafy Krawk Pot",
+                      "lastSoldFor":  19999
+                  },
+                  {
+                      "name":  "Left-Over Turkey Steak Sandwich",
+                      "lastSoldFor":  3500
+                  },
+                  {
+                      "name":  "Lupes in Fashion",
+                      "lastSoldFor":  1999
+                  },
+                  {
+                      "name":  "Lutical Berries",
+                      "lastSoldFor":  22000
+                  },
+                  {
+                      "name":  "Meercas On Parade",
+                      "lastSoldFor":  5999
+                  },
+                  {
+                      "name":  "Mixed Grarrl Salad",
+                      "lastSoldFor":  2500
+                  },
+                  {
+                      "name":  "Mr Irgo Explained",
+                      "lastSoldFor":  1515
+                  },
+                  {
+                      "name":  "Nest Builders Manual",
+                      "lastSoldFor":  1250
+                  },
+                  {
+                      "name":  "Nightmares and Dreams",
+                      "lastSoldFor":  1999
+                  },
+                  {
+                      "name":  "Nimmo of Doom",
+                      "lastSoldFor":  4999
+                  },
+                  {
+                      "name":  "Olive Cupcake",
+                      "lastSoldFor":  4999
+                  },
+                  {
+                      "name":  "On The Trot",
+                      "lastSoldFor":  9000
+                  },
+                  {
+                      "name":  "Orange-Stuffed Turkey with Jam Dressing",
+                      "lastSoldFor":  7250
+                  },
+                  {
+                      "name":  "Peanut Butter Crackers",
+                      "lastSoldFor":  4444
+                  },
+                  {
+                      "name":  "Phear Flavoured Milk",
+                      "lastSoldFor":  25000
+                  },
+                  {
+                      "name":  "Picking The Perfect Carrot",
+                      "lastSoldFor":  1800
+                  },
+                  {
+                      "name":  "Pineapple and Oranges",
+                      "lastSoldFor":  7999
+                  },
+                  {
+                      "name":  "Plain Omurice",
+                      "lastSoldFor":  12999
+                  },
+                  {
+                      "name":  "Plushie Slice of Cake",
+                      "lastSoldFor":  5555
+                  },
+                  {
+                      "name":  "Quiggle Grilled Cheese Sandwich",
+                      "lastSoldFor":  11000
+                  },
+                  {
+                      "name":  "Rare Stamps",
+                      "lastSoldFor":  95000
+                  },
+                  {
+                      "name":  "Red Neocola Token",
+                      "lastSoldFor":  4200
+                  },
+                  {
+                      "name":  "Repairing Your Petpets",
+                      "lastSoldFor":  2999
+                  },
+                  {
+                      "name":  "Shishkafruit Jam",
+                      "lastSoldFor":  22222
+                  },
+                  {
+                      "name":  "Sho Codestone",
+                      "lastSoldFor":  17500
+                  },
+                  {
+                      "name":  "Snow Apple",
+                      "lastSoldFor":  3200
+                  },
+                  {
+                      "name":  "Speak Grundo Vol 1",
+                      "lastSoldFor":  5555
+                  },
+                  {
+                      "name":  "Spooky Korbat Stories",
+                      "lastSoldFor":  1515
+                  },
+                  {
+                      "name":  "Square Book of Rainy Day Activities",
+                      "lastSoldFor":  2999
+                  },
+                  {
+                      "name":  "Square Marshmallows",
+                      "lastSoldFor":  1999
+                  },
+                  {
+                      "name":  "Strawberry Kougra Pudding",
+                      "lastSoldFor":  1777
+                  },
+                  {
+                      "name":  "Studded Leather Armour",
+                      "lastSoldFor":  6666
+                  },
+                  {
+                      "name":  "Stuffed Shells",
+                      "lastSoldFor":  3999
+                  },
+                  {
+                      "name":  "Summer Postcards",
+                      "lastSoldFor":  3434
+                  },
+                  {
+                      "name":  "Swirly Chocolate Milk",
+                      "lastSoldFor":  9999
+                  },
+                  {
+                      "name":  "Tabouleaf",
+                      "lastSoldFor":  4999
+                  },
+                  {
+                      "name":  "Tasty Guacamole",
+                      "lastSoldFor":  2222
+                  },
+                  {
+                      "name":  "Tea Biscuits",
+                      "lastSoldFor":  4120
+                  },
+                  {
+                      "name":  "Techo Foot Sandwich",
+                      "lastSoldFor":  19999
+                  },
+                  {
+                      "name":  "The Solutions to Polka Dots",
+                      "lastSoldFor":  3562
+                  },
+                  {
+                      "name":  "White Chocolate Covered Toffee",
+                      "lastSoldFor":  8999
+                  },
+                  {
+                      "name":  "Zafara Gruel",
+                      "lastSoldFor":  16999
+                  }
+              ]
 }
