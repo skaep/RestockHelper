@@ -82,8 +82,8 @@
                   },
                   {
                       "name":  "Honey Coated Apple Slices",
-                      "lastSoldFor":  2222,
-                      "lastSoldOn":  "21/02/2026"
+                      "lastSoldFor":  9999,
+                      "lastSoldOn":  "28/02/2026"
                   },
                   {
                       "name":  "Tasty Guacamole",
@@ -133,7 +133,7 @@
                   {
                       "name":  "Crispy Crunchy Cookies Cereal",
                       "lastSoldFor":  3434,
-                      "lastSoldOn":  "24/02/2026"
+                      "lastSoldOn":  "28/02/2026"
                   },
                   {
                       "name":  "Butterscotch Milkshake",
@@ -272,8 +272,8 @@
                   },
                   {
                       "name":  "Lutical Berries",
-                      "lastSoldFor":  22000,
-                      "lastSoldOn":  "21/02/2026"
+                      "lastSoldFor":  19999,
+                      "lastSoldOn":  "28/02/2026"
                   },
                   {
                       "name":  "Shishkafruit Jam",
@@ -393,7 +393,7 @@
                   {
                       "name":  "Edible Orange Socks",
                       "lastSoldFor":  9999,
-                      "lastSoldOn":  "27/02/2026"
+                      "lastSoldOn":  "28/02/2026"
                   },
                   {
                       "name":  "The Hidden Temple",
@@ -578,7 +578,7 @@
                   {
                       "name":  "Zafara Gruel",
                       "lastSoldFor":  16999,
-                      "lastSoldOn":  "27/02/2026"
+                      "lastSoldOn":  "28/02/2026"
                   },
                   {
                       "name":  "Liver Poogle Pate",
@@ -609,6 +609,121 @@
                       "name":  "Double Tuskaninny Tales",
                       "lastSoldFor":  95000,
                       "lastSoldOn":  "26/02/2026"
+                  },
+                  {
+                      "name":  "Thing Rolls",
+                      "lastSoldFor":  1999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Flaming Blooble Fruit Juice ",
+                      "lastSoldFor":  600,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Starry Crunch",
+                      "lastSoldFor":  200,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Skies Above Tyrannia ",
+                      "lastSoldFor":  200,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Buzz Gourmet ",
+                      "lastSoldFor":  200,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Scarab Negg",
+                      "lastSoldFor":  1500,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Enoki-n-Cheese Plank",
+                      "lastSoldFor":  2299,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Kyrii Chocolate Milkshake",
+                      "lastSoldFor":  2999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Cranberry Turkey Sandwich",
+                      "lastSoldFor":  2999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Fresh Popcorn",
+                      "lastSoldFor":  3333,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Lenny Mint Chocolate Chip Ice Cream",
+                      "lastSoldFor":  3450,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Bori Bowl of Fruit",
+                      "lastSoldFor":  3999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Neopolitan Milkshake",
+                      "lastSoldFor":  4500,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Pea and Carrot-Stuffed Turkey",
+                      "lastSoldFor":  5999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Black Cherry Sundae",
+                      "lastSoldFor":  6500,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Plushie Burger",
+                      "lastSoldFor":  6999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Sausage Cornucopia",
+                      "lastSoldFor":  7999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Storage Ideas",
+                      "lastSoldFor":  7999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Pastrami Milkshake",
+                      "lastSoldFor":  9799,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Terror Mountain Colouring Book",
+                      "lastSoldFor":  11111,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Buttery Chomby Waffles",
+                      "lastSoldFor":  18999,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Neggdrop Soup",
+                      "lastSoldFor":  25000,
+                      "lastSoldOn":  "28/02/2026"
+                  },
+                  {
+                      "name":  "Water Cake",
+                      "lastSoldFor":  59999,
+                      "lastSoldOn":  "28/02/2026"
                   }
               ]
 }
