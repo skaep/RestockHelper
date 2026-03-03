@@ -1,34 +1,116 @@
+// ====================== ITEM LISTS ======================
+window.valuableitems = [];
+window.ignoreItems = [];
+window.itemnameswildcards = [];
+window.soldItemsMap = new Map();
+
 // ====================== SETTINGS ======================
-const CLICK_DELAY_MIN = 250; // ms
-const CLICK_DELAY_MAX = 600; // ms
-const FILL_DELAY_MIN = 200; // ms
-const FILL_DELAY_MAX = 500; // ms
-const HOTKEY = { key: "F8" }; // Press F8 to toggle automation
+const CLICK_DELAY_MIN = 250;
+const CLICK_DELAY_MAX = 600;
+const FILL_DELAY_MIN = 200;
+const FILL_DELAY_MAX = 500;
+
 const ITEMGITURL =
   "https://raw.githubusercontent.com/skaep/RestockHelper/main/items.json";
-// ====================== STATE ======================
+const SOLDITEMS_URL =
+  "https://raw.githubusercontent.com/skaep/RestockHelper/refs/heads/main/solditems.json";
+
 let automationEnabled = localStorage.getItem("npAutomation") === "true";
 
-// ====================== DEFAULT USER SETTINGS ======================
+// ====================== DEFAULT SETTINGS ======================
 const defaultSettings = {
-  wildcardTextColor: "#800080", // purple
+  wildcardTextColor: "#800080",
   greyedOpacity: 0.5,
   autoClickValueItems: true,
   valueItemColor: "#800080",
   tenThousandColor: "#FF8C00",
   otherPrices: [5000, 2500],
   otherPricesColor: "#008000",
+  profitThreshold: 10000,
+  highProfitOutline: "#FFD700",
 };
 
-// Load saved settings or defaults
 const settings = JSON.parse(localStorage.getItem("npAutoSettings") || "{}");
 for (const key in defaultSettings) {
   if (settings[key] === undefined) settings[key] = defaultSettings[key];
 }
 
+function saveSettings() {
+  localStorage.setItem("npAutoSettings", JSON.stringify(settings));
+}
+
 // ====================== UTIL ======================
 function randomDelay(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+// ====================== SOLD ITEMS ======================
+async function loadSoldItems(forceRefresh = false) {
+  const CACHE_DURATION = 30 * 60 * 1000; // 30 minutes
+  const now = Date.now();
+
+  const cached = localStorage.getItem("npSoldCache");
+  const cachedTime = localStorage.getItem("npSoldCacheTime");
+
+  if (cached && !forceRefresh) {
+    try {
+      const data = JSON.parse(cached);
+      window.soldItemsMap = new Map(
+        data.items.map((item) => [item.name, item.lastSoldFor]),
+      );
+    } catch {}
+  }
+
+  if (
+    forceRefresh ||
+    !cachedTime ||
+    now - parseInt(cachedTime) > CACHE_DURATION
+  ) {
+    try {
+      forceRefresh ? console.log("Items reloaded") : "";
+      const res = await fetch(SOLDITEMS_URL);
+      const data = await res.json();
+
+      window.soldItemsMap = new Map(
+        data.items.map((item) => [item.name, item.lastSoldFor]),
+      );
+
+      localStorage.setItem("npSoldCache", JSON.stringify(data));
+      localStorage.setItem("npSoldCacheTime", now.toString());
+
+      applyShopStyling();
+    } catch {}
+  }
+}
+
+// ====================== LOAD ITEM LISTS ======================
+async function loadItemLists() {
+  const cached = localStorage.getItem("npItemCache");
+
+  if (cached) {
+    try {
+      const data = JSON.parse(cached);
+      window.valuableitems = data.valuableitems || [];
+      window.ignoreItems = data.ignoreItems || [];
+      window.itemnameswildcards = data.itemnameswildcards || [];
+    } catch {}
+  }
+
+  applyShopStyling();
+
+  try {
+    const res = await fetch(ITEMGITURL);
+    const data = await res.json();
+
+    window.valuableitems = data.valuableitems || [];
+    window.ignoreItems = data.ignoreItems || [];
+    window.itemnameswildcards = data.itemnameswildcards || [];
+
+    localStorage.setItem("npItemCache", JSON.stringify(data));
+    localStorage.setItem("npItemCacheTime", Date.now().toString());
+
+    applyShopStyling();
+  } catch {}
 }
 
 // ====================== STATUS INDICATOR ======================
@@ -37,51 +119,29 @@ function createStatusIndicator() {
 
   const indicator = document.createElement("div");
   indicator.id = "np-auto-indicator";
-  indicator.style.position = "fixed";
-  indicator.style.bottom = "15px";
-  indicator.style.right = "15px";
-  indicator.style.padding = "8px 14px";
-  indicator.style.borderRadius = "8px";
-  indicator.style.fontSize = "14px";
-  indicator.style.fontWeight = "bold";
-  indicator.style.zIndex = "99999";
-  indicator.style.boxShadow = "0 0 10px rgba(0,0,0,0.4)";
-  indicator.style.transition = "0.2s ease";
-  indicator.style.cursor = "pointer";
-  indicator.addEventListener("click", () => {
+  indicator.style.cssText = `
+    position:fixed;bottom:15px;right:15px;padding:8px 14px;
+    border-radius:8px;font-size:14px;font-weight:bold;
+    z-index:99999;cursor:pointer;
+  `;
+
+  indicator.onclick = () => {
     automationEnabled = !automationEnabled;
     localStorage.setItem("npAutomation", automationEnabled);
     updateIndicator();
-  });
+  };
 
   document.body.appendChild(indicator);
   updateIndicator();
 }
 
 function updateIndicator() {
-  const indicator = document.getElementById("np-auto-indicator");
-  if (!indicator) return;
-
-  if (automationEnabled) {
-    indicator.textContent = "NP Auto: ON";
-    indicator.style.backgroundColor = "purple";
-    indicator.style.color = "white";
-  } else {
-    indicator.textContent = "NP Auto: OFF";
-    indicator.style.backgroundColor = "#444";
-    indicator.style.color = "#ccc";
-  }
+  const el = document.getElementById("np-auto-indicator");
+  if (!el) return;
+  el.textContent = automationEnabled ? "NP Auto: ON" : "NP Auto: OFF";
+  el.style.backgroundColor = automationEnabled ? "purple" : "#444";
+  el.style.color = automationEnabled ? "white" : "#ccc";
 }
-
-// ====================== HOTKEY ======================
-document.addEventListener("keydown", (e) => {
-  if (e.key === HOTKEY.key) {
-    automationEnabled = !automationEnabled;
-    localStorage.setItem("npAutomation", automationEnabled);
-    updateIndicator();
-    console.log("Automation toggled:", automationEnabled);
-  }
-});
 
 // ====================== SETTINGS PANEL ======================
 function createSettingsPanel() {
@@ -89,229 +149,232 @@ function createSettingsPanel() {
 
   const panel = document.createElement("div");
   panel.id = "np-auto-settings";
-  panel.style.position = "fixed";
-  panel.style.bottom = "15px";
-  panel.style.left = "15px";
-  panel.style.padding = "10px";
-  panel.style.border = "1px solid #ccc";
-  panel.style.borderRadius = "8px";
-  panel.style.backgroundColor = "white";
-  panel.style.zIndex = "99999";
-  panel.style.fontSize = "14px";
-  panel.style.boxShadow = "0 0 10px rgba(0,0,0,0.3)";
-  panel.style.display = "flex";
-  panel.style.flexDirection = "column";
-  panel.style.gap = "6px";
+  panel.style.cssText = `
+    position:fixed;bottom:15px;left:15px;padding:10px;
+    border:1px solid #ccc;border-radius:8px;background:white;
+    z-index:99999;font-size:14px;
+    box-shadow:0 0 10px rgba(0,0,0,0.3);
+    display:flex;flex-direction:column;gap:6px;
+  `;
 
   panel.innerHTML = `
-    <div style="margin-bottom:5px;"><b>Settings</b></div>
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-      <label>Wildcard Text Color:</label>
-      <input type="color" id="wildcardColor" value="${
-        settings.wildcardTextColor
-      }">
-    </div>
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-      <label>Value Item Color:</label>
-      <input type="color" id="valueColor" value="${settings.valueItemColor}">
-    </div>
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-      <label>10,000 Price Color:</label>
-      <input type="color" id="tenKColor" value="${settings.tenThousandColor}">
-    </div>
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-      <label>Other Prices Color:</label>
-      <input type="color" id="otherPriceColor" value="${
-        settings.otherPricesColor
-      }">
-    </div>
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-      <label>Greyed Opacity:</label>
-      <input type="range" id="greyOpacity" min="0" max="1" step="0.01" value="${
-        settings.greyedOpacity
-      }">
-    </div>
-    <div style="display:flex; justify-content: space-between; align-items: center;">
-      <label>Auto-click Value Items:</label>
-      <input type="checkbox" id="autoClickVal" ${
-        settings.autoClickValueItems ? "checked" : ""
-      }>
-    </div>
+    <div><b>Settings</b></div>
+    <label>Wildcard <input type="color" id="wildcardColor" value="${settings.wildcardTextColor}"></label>
+    <label>Value Item <input type="color" id="valueColor" value="${settings.valueItemColor}"></label>
+    <label>10k Price <input type="color" id="tenKColor" value="${settings.tenThousandColor}"></label>
+    <label>Other Prices <input type="color" id="otherPriceColor" value="${settings.otherPricesColor}"></label>
+    <label>Grey Opacity <input type="range" id="greyOpacity" min="0" max="1" step="0.01" value="${settings.greyedOpacity}"></label>
+    <label>Auto-click <input type="checkbox" id="autoClickVal" ${settings.autoClickValueItems ? "checked" : ""}></label>
+    <label>Profit Threshold <input type="number" id="profitThreshold" value="${settings.profitThreshold}"></label>
+    <button id="reloadItemBtn">Reload Item Lists</button>
   `;
 
   document.body.appendChild(panel);
 
-  // Event listeners
-  document.getElementById("wildcardColor").addEventListener("input", (e) => {
+  panel.querySelector("#wildcardColor").oninput = (e) => {
     settings.wildcardTextColor = e.target.value;
-    localStorage.setItem("npAutoSettings", JSON.stringify(settings));
+    saveSettings();
     applyShopStyling();
-  });
-
-  document.getElementById("valueColor").addEventListener("input", (e) => {
+  };
+  panel.querySelector("#valueColor").oninput = (e) => {
     settings.valueItemColor = e.target.value;
-    localStorage.setItem("npAutoSettings", JSON.stringify(settings));
+    saveSettings();
     applyShopStyling();
-  });
-
-  document.getElementById("tenKColor").addEventListener("input", (e) => {
+  };
+  panel.querySelector("#tenKColor").oninput = (e) => {
     settings.tenThousandColor = e.target.value;
-    localStorage.setItem("npAutoSettings", JSON.stringify(settings));
+    saveSettings();
     applyShopStyling();
-  });
-
-  document.getElementById("otherPriceColor").addEventListener("input", (e) => {
+  };
+  panel.querySelector("#otherPriceColor").oninput = (e) => {
     settings.otherPricesColor = e.target.value;
-    localStorage.setItem("npAutoSettings", JSON.stringify(settings));
+    saveSettings();
     applyShopStyling();
-  });
-
-  document.getElementById("greyOpacity").addEventListener("input", (e) => {
+  };
+  panel.querySelector("#greyOpacity").oninput = (e) => {
     settings.greyedOpacity = parseFloat(e.target.value);
-    localStorage.setItem("npAutoSettings", JSON.stringify(settings));
+    saveSettings();
     applyShopStyling();
-  });
-
-  document.getElementById("autoClickVal").addEventListener("change", (e) => {
+  };
+  panel.querySelector("#autoClickVal").onchange = (e) => {
     settings.autoClickValueItems = e.target.checked;
-    localStorage.setItem("npAutoSettings", JSON.stringify(settings));
-  });
+    saveSettings();
+  };
+  panel.querySelector("#profitThreshold").oninput = (e) => {
+    settings.profitThreshold = parseInt(e.target.value, 10) || 0;
+    saveSettings();
+    applyShopStyling();
+  };
+  panel.querySelector("#reloadItemBtn").onclick = () => {
+    localStorage.removeItem("npItemCache");
+    localStorage.removeItem("npSoldCache");
+    loadItemLists();
+    loadSoldItems(true);
+  };
 }
 
-// ====================== HAGGLE PAGE AUTO-FILL ======================
-(function autoFillHaggle() {
+// ====================== HAGGLE AUTO-FILL ======================
+function initHaggleAutofill() {
   const tryFill = () => {
     if (!automationEnabled) return;
+    const input = document.querySelector('input[name="current_offer"]');
+    if (!input) {
+      setTimeout(tryFill, 150);
+      return;
+    }
+    const price = sessionStorage.getItem("autoOfferPrice");
+    if (!price) return;
+    setTimeout(
+      () => {
+        input.focus();
+        input.value = price;
+        input.dispatchEvent(new Event("input", { bubbles: true }));
+        input.select();
+      },
+      randomDelay(FILL_DELAY_MIN, FILL_DELAY_MAX),
+    );
+  };
+  tryFill();
+}
 
-    const offerInput = document.querySelector('input[name="current_offer"]');
-    if (!offerInput) {
-      setTimeout(tryFill, 120);
+// ====================== SHOP STYLING ======================
+let stylingScheduled = false;
+
+function applyShopStyling() {
+  if (stylingScheduled) return;
+  stylingScheduled = true;
+
+  requestAnimationFrame(() => {
+    const boxes = document.getElementsByClassName("shop-item");
+    if (!boxes.length) {
+      stylingScheduled = false;
       return;
     }
 
-    const savedPrice = sessionStorage.getItem("autoOfferPrice");
-    if (!savedPrice) return;
+    const valuableSet = new Set(window.valuableitems);
+    const ignoreSet = new Set(window.ignoreItems);
 
-    const delay = randomDelay(FILL_DELAY_MIN, FILL_DELAY_MAX);
-    setTimeout(() => {
-      offerInput.focus();
-      offerInput.value = savedPrice;
-      offerInput.dispatchEvent(new Event("input", { bubbles: true }));
-      offerInput.select();
-      console.log("Auto-filled offer:", savedPrice);
-    }, delay);
-  };
+    for (const box of boxes) {
+      const nameElem = box.querySelector(".item-name b");
+      const itemname = nameElem ? nameElem.innerText.trim() : "";
+      if (!itemname) continue;
 
-  tryFill();
-})();
+      const priceText = box.querySelectorAll(".item-stock")[1]?.innerText || "";
+      const StockAmountText =
+        box.querySelectorAll(".item-stock")[0]?.innerText || "";
+      const StockAmountString = StockAmountText.match(/\d+/);
+      const StockAmount = StockAmountString
+        ? parseInt(StockAmountString[0], 10)
+        : null;
+      const priceMatch = priceText.match(/Cost:\s*([\d,]+)/i);
+      const price = priceMatch
+        ? parseInt(priceMatch[1].replace(/,/g, ""), 10)
+        : 0;
 
-// ====================== SHOP PAGE AUTOMATION ======================
-async function loadItemListsAndRun() {
-  const url = ITEMGITURL;
-  try {
-    const res = await fetch(url);
-    if (!res.ok) throw new Error("Failed to fetch item list");
-    const data = await res.json();
-    window.valuableitems = data.valuableitems || [];
-    window.ignoreItems = data.ignoreItems || [];
-    window.itemnameswildcards = data.itemnameswildcards || [];
-    console.log("Item lists loaded from JSON");
-    applyShopStyling();
-  } catch (err) {
-    console.error("Error loading item lists:", err);
-  }
-}
-
-function applyShopStyling() {
-  const boxes = document.getElementsByClassName("shop-item");
-  if (!boxes || boxes.length === 0) return;
-  const valuableSet = new Set(valuableitems);
-
-  for (const box of boxes) {
-    const itemname = box.children[1]?.innerText.trim() || "";
-    const priceText = box.children[3]?.innerText.trim() || "";
-
-    let price = 0;
-    const priceMatch = priceText.match(/Cost:\s*([\d,]+)/i);
-    if (priceMatch) price = parseInt(priceMatch[1].replace(/,/g, ""), 10);
-
-    const isIgnored = ignoreItems.includes(itemname);
-    const isExactValuable = valuableSet.has(itemname);
-    const isWildcardMatch = itemnameswildcards.some((w) =>
-      itemname.toLowerCase().includes(w.toLowerCase())
-    );
-    const isTenK = price === 10000;
-    const isOtherPrice = settings.otherPrices.includes(price);
-
-    // ================= STYLING =================
-    if (isIgnored) {
-      box.style.opacity = settings.greyedOpacity;
-      box.style.filter = "grayscale(70%)";
+      // Reset styles safely
+      box.style.opacity = "";
+      box.style.filter = "";
       box.style.backgroundColor = "";
       box.style.color = "";
-    } else if (isExactValuable) {
-      box.style.backgroundColor = settings.valueItemColor;
-      box.style.color = "white";
-      box.style.opacity = "1";
-      box.style.filter = "none";
-    } else if (isTenK) {
-      box.style.color = settings.tenThousandColor;
-      box.style.opacity = "1";
-      box.style.filter = "none";
-    } else if (isOtherPrice) {
-      box.style.color = settings.otherPricesColor;
-      box.style.opacity = "1";
-      box.style.filter = "none";
-    } else if (isWildcardMatch) {
-      box.style.color = settings.wildcardTextColor;
-      box.style.opacity = "1";
-      box.style.filter = "none";
-    } else {
-      box.style.opacity = settings.greyedOpacity;
-      box.style.filter = "grayscale(70%)";
-    }
+      box.style.outline = "";
 
-    // ================= CLICK HOOK =================
-    const clickable = box.querySelector(".item-img");
-    if (clickable) {
-      clickable.addEventListener("click", () => {
-        sessionStorage.setItem("autoOfferPrice", price.toString());
-        console.log("Clicked item:", itemname, "Price stored:", price);
-      });
+      const soldPrice = window.soldItemsMap.get(itemname);
+      const profit = soldPrice ? soldPrice - price : 0;
+      const isBigProfit = soldPrice && profit > settings.profitThreshold;
 
-      if (
-        automationEnabled &&
-        settings.autoClickValueItems &&
-        isExactValuable
-      ) {
-        const delay = randomDelay(CLICK_DELAY_MIN, CLICK_DELAY_MAX);
-        console.log(
-          "Auto-clicking valuable item:",
-          itemname,
-          "Price:",
-          price,
-          "in",
-          delay,
-          "ms"
-        );
-        setTimeout(() => clickable.click(), delay);
-        break;
+      // ================= SOLD PRICE DISPLAY =================
+      let soldDiv = box.querySelector(".np-sold-info");
+
+      if (soldPrice) {
+        if (!soldDiv) {
+          soldDiv = document.createElement("div");
+          soldDiv.className = "np-sold-info";
+          soldDiv.style.fontSize = "12px";
+          soldDiv.style.marginTop = "4px";
+          soldDiv.style.fontWeight = "bold";
+          box.appendChild(soldDiv);
+        }
+
+        soldDiv.textContent =
+          `Sell: ${soldPrice.toLocaleString()} NP` +
+          (profit > 0 ? `  (+${profit.toLocaleString()})` : "");
+
+        soldDiv.style.color = profit > 0 ? "green" : "#0066cc";
+      } else if (soldDiv) {
+        soldDiv.remove();
+      }
+      // ======================================================
+
+      const isIgnored = ignoreSet.has(itemname);
+      const isExactValuable = valuableSet.has(itemname);
+      const isWildcardMatch = window.itemnameswildcards.some((w) =>
+        itemname.toLowerCase().includes(w.toLowerCase()),
+      );
+      const isTenK = price === 10000;
+      const isOtherPrice = settings.otherPrices.includes(price);
+
+      if (isIgnored) {
+        box.style.opacity = settings.greyedOpacity;
+        box.style.filter = "grayscale(70%)";
+      } else if (isBigProfit) {
+        box.style.outline = `2px solid ${settings.highProfitOutline}`;
+      } else if (isExactValuable) {
+        box.style.backgroundColor = settings.valueItemColor;
+        box.style.color = "white";
+      } else if (isTenK) {
+        box.style.color = settings.tenThousandColor;
+      } else if (isOtherPrice) {
+        box.style.color = settings.otherPricesColor;
+      } else if (isWildcardMatch) {
+        box.style.color = settings.wildcardTextColor;
+      } else {
+        box.style.opacity = settings.greyedOpacity;
+        box.style.filter = "grayscale(70%)";
+      }
+
+      const clickable = box.querySelector(".item-img");
+      if (clickable && !clickable.dataset.listenerAdded) {
+        clickable.dataset.listenerAdded = "true";
+        clickable.addEventListener("click", () => {
+          sessionStorage.setItem("autoOfferPrice", price.toString());
+        });
+
+        if (
+          automationEnabled &&
+          settings.autoClickValueItems &&
+          isExactValuable
+        ) {
+          setTimeout(
+            () => clickable.click(),
+            randomDelay(CLICK_DELAY_MIN, CLICK_DELAY_MAX),
+          );
+        }
       }
     }
-  }
+
+    stylingScheduled = false;
+  });
 }
 
-// ====================== DYNAMIC INIT ======================
-function initAutomationUI() {
+// ====================== INIT ======================
+function init() {
   createStatusIndicator();
   createSettingsPanel();
-  applyShopStyling();
+  initHaggleAutofill();
+  loadItemLists();
+  loadSoldItems();
 }
 
-const observer = new MutationObserver(() => initAutomationUI());
-observer.observe(document.body, { childList: true, subtree: true });
+if (
+  document.readyState === "complete" ||
+  document.readyState === "interactive"
+) {
+  init();
+} else {
+  document.addEventListener("DOMContentLoaded", init);
+}
 
-window.addEventListener("DOMContentLoaded", () => {
-  initAutomationUI();
-  loadItemListsAndRun();
+new MutationObserver(applyShopStyling).observe(document.body, {
+  childList: true,
+  subtree: true,
 });
