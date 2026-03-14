@@ -15,7 +15,7 @@
     "7": {
       "profitThreshold": 7500,
       "greyOpacity": 0.4,
-      "otherPrices": [2500, 5000],
+      "otherPrices": [2500, 5000, 10000],
       "valueItemColor": "#FF00FF"
     },
 
@@ -28,6 +28,7 @@
 
     "58": {
       "profitThreshold": 7500,
+      "otherPrices": [5000],
       "autoClickValueItems": true
     }
 
