@@ -1,0 +1,35 @@
+{
+  "default": {
+    "profitThreshold": 10000,
+    "autoClickValueItems": true,
+    "greyOpacity": 0.5,
+    "wildcardColor": "#800080",
+    "valueItemColor": "#800080",
+    "tenKColor": "#FF8C00",
+    "otherPricesColor": "#008000",
+    "otherPrices": [5000]
+  },
+
+  "shops": {
+
+    "7": {
+      "profitThreshold": 7500,
+      "greyOpacity": 0.4,
+      "otherPrices": [2500, 5000],
+      "valueItemColor": "#FF00FF"
+    },
+
+    "1": {
+      "profitThreshold": 7500,
+      "greyOpacity": 0.6,
+      "otherPrices": [10000],
+      "wildcardColor": "#00FFFF"
+    },
+
+    "58": {
+      "profitThreshold": 7500,
+      "autoClickValueItems": true
+    }
+
+  }
+}
