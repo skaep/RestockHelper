@@ -10,8 +10,8 @@
     "autoClickValueItems": true,
     "profitColors": {
       "loss": "#ff4d4d",
-      "low": "#bbbbbb",
-      "medium": "#66cc66",
+      "low": "#000000",
+      "medium": "#000000",
       "high": "#00cc00",
       "huge": "#FFD700"
     },
