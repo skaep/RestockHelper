@@ -7,7 +7,20 @@
     "valueItemColor": "#800080",
     "tenKColor": "#FF8C00",
     "otherPricesColor": "#008000",
-    "otherPrices": [5000]
+    "autoClickValueItems": true,
+    "profitColors": {
+      "loss": "#ff4d4d",
+      "low": "#bbbbbb",
+      "medium": "#66cc66",
+      "high": "#00cc00",
+      "huge": "#FFD700"
+    },
+    "profitLevels": {
+      "low": 0,
+      "medium": 5000,
+      "high": 10000,
+      "huge": 50000
+    }
   },
 
   "shops": {
