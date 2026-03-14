@@ -28,7 +28,7 @@
 
     "58": {
       "profitThreshold": 7500,
-      "otherPrices": [5000],
+      "otherPrices": [5000,10000],
       "autoClickValueItems": true
     }
 
