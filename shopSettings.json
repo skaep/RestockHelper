@@ -33,7 +33,7 @@
 
     "1": {
       "greyOpacity": 0.6,
-      "otherPrices": [10000],
+      "otherPrices": [1127,10000],
       "wildcardColor": "#00FFFF"
     },
 
