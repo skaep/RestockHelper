@@ -1,6 +1,6 @@
 {
   "default": {
-    "profitThreshold": 10000,
+    "profitThreshold": 100000,
     "autoClickValueItems": true,
     "greyOpacity": 0.5,
     "wildcardColor": "#800080",
@@ -13,21 +13,18 @@
   "shops": {
 
     "7": {
-      "profitThreshold": 7500,
       "greyOpacity": 0.4,
       "otherPrices": [2500, 5000, 10000],
       "valueItemColor": "#FF00FF"
     },
 
     "1": {
-      "profitThreshold": 7500,
       "greyOpacity": 0.6,
       "otherPrices": [10000],
       "wildcardColor": "#00FFFF"
     },
 
     "58": {
-      "profitThreshold": 7500,
       "otherPrices": [5000,10000],
       "autoClickValueItems": true
     }
