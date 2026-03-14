@@ -22,7 +22,7 @@
     "1": {
       "profitThreshold": 7500,
       "greyOpacity": 0.6,
-      "otherPrices": [1197,10000],
+      "otherPrices": [10000],
       "wildcardColor": "#00FFFF"
     },
 
