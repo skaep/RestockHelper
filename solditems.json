@@ -1,10 +1,5 @@
 {
-    "items":  [
-          {
-                      "name":  "Destruct-O-Match Stamp",
-                      "lastSoldFor":  3999999,
-                      "lastSoldOn":  "04/03/2026"
-                  },        
+    "items":  [      
         {
                       "name":  "1001 Yokes",
                       "lastSoldFor":  3999,
