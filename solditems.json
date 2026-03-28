@@ -1,5 +1,5 @@
 {
-    "items":  [      
+    "items":  [
                   {
                       "name":  "1001 Yokes",
                       "lastSoldFor":  3999,
@@ -249,6 +249,11 @@
                       "name":  "Bad Apples",
                       "lastSoldFor":  1400,
                       "lastSoldOn":  "24/02/2026"
+                  },
+                  {
+                      "name":  "Bag of Lenny Healing Seeds",
+                      "lastSoldFor":  5000000,
+                      "lastSoldOn":  "24/03/2026"
                   },
                   {
                       "name":  "Bagel and Egg Sandwich",
@@ -1269,6 +1274,11 @@
                       "name":  "Farming in Famine",
                       "lastSoldFor":  17999,
                       "lastSoldOn":  "14/03/2026"
+                  },
+                  {
+                      "name":  "Feathered Pteri Cloak ",
+                      "lastSoldFor":  500000,
+                      "lastSoldOn":  "24/03/2026"
                   },
                   {
                       "name":  "Felberry Gormball Sandwich",
